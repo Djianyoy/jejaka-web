@@ -1,0 +1,6 @@
+export const latinToJawa = [
+ ["omah","ꦲꦺꦴꦩꦃ"],["banyu","ꦧꦚꦸ"],["pitik","ꦥꦶꦠꦶꦏ꧀"],["kucing","ꦏꦸꦕꦶꦁ"],["sapi","ꦱꦥꦶ"],["sega","ꦱꦼꦒ"],["kebo","ꦏꦼꦧꦺꦴ"],["kopi","ꦏꦺꦴꦥꦶ"],["mata","ꦩꦠ"],["tangan","ꦠꦔꦤ꧀"],["sikil","ꦱꦶꦏꦶꦭ꧀"],["pasar","ꦥꦱꦂ"],["buku","ꦧꦸꦏꦸ"],["watu","ꦮꦠꦸ"],["gunung","ꦒꦸꦤꦸꦁ"],
+] as const;
+export const jawaToLatin = [
+ ["sapu","ꦱꦥꦸ","alat untuk membersihkan"],["tali","ꦠꦭꦶ","untuk mengikat"],["kayu","ꦏꦪꦸ","bagian batang pohon"],["dalan","ꦢꦭꦤ꧀","jalan"],["jaran","ꦗꦫꦤ꧀","kuda"],["tela","ꦠꦼꦭ","singkong"],["lampu","ꦭꦩ꧀ꦥꦸ","alat penerangan"],["gelas","ꦒꦼꦭꦱ꧀","wadah minum"],["rasa","ꦫꦱ","sensasi atau perasaan"],["lara","ꦭꦫ","sakit"],
+] as const;
