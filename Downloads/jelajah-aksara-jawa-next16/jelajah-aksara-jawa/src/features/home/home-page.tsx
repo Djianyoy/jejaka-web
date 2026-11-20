@@ -115,7 +115,6 @@ export function HomePage() {
       <section className="section bg-[#faf9f5]">
         <div className="container grid items-center gap-12 lg:grid-cols-[.8fr_1.2fr]">
           <div>
-            <p className="eyebrow">01 / MENGENAL</p>
             <h2 className="display mt-3 text-4xl leading-tight font-semibold text-[#173c32]">
               Apa itu Aksara Jawa?
             </h2>
@@ -174,7 +173,6 @@ export function HomePage() {
         <div className="container">
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow">02 / TELUSURI</p>
               <h2 className="display mt-2 text-3xl font-semibold text-[#173c32]">
                 Mengenal lebih dekat
               </h2>
@@ -240,7 +238,6 @@ export function HomePage() {
         <div className="container">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <p className="eyebrow">03 / DID YOU KNOW?</p>
               <h2 className="display mt-2 text-3xl font-semibold text-[#173c32]">
                 Cerita di balik aksara
               </h2>
@@ -285,7 +282,6 @@ export function HomePage() {
       <section className="bg-[#173c32] py-16 text-[#f5f0e4]">
         <div className="container">
           <div className="mx-auto mb-10 max-w-xl text-center">
-            <p className="eyebrow !text-[#d7bd88]">04 / BELAJAR AKTIF</p>
             <h2 className="display mt-3 text-4xl font-semibold">
               Yuk, belajar sambil bermain!
             </h2>

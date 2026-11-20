@@ -35,7 +35,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="mt-12 flex flex-col justify-between gap-3 border-t border-white/15 pt-6 text-xs text-[#aeb8ac] sm:flex-row">
-          <span>© 2026 Jelajah Aksara Jawa · Kelompok 6</span>
+          <span>© 2026 Jelajah Aksara Jawa · Kelompok 6 | (Salwa, Shella, Kiarra, Aurelia)</span>
           <span>Manusia Kebudayaan Indonesia</span>
         </div>
       </div>
