@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { X, ArrowRight } from "lucide-react";
-import { PageHeading } from "@/components/page-heading";
+import { PageHeading } from "@/shared/components/page-heading";
 import { aksara } from "@/data/aksara";
 const timeline = [
   {

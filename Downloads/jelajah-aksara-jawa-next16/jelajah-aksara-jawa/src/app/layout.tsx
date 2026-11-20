@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/shared/components/site-header";
+import { SiteFooter } from "@/shared/components/site-footer";
+import { JetBrains_Mono } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+
+const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
+
 export const metadata: Metadata = {
   title: {
     default: "Jelajah Aksara Jawa — Mengenal Aksara, Menjaga Budaya",
@@ -16,10 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
+    <html lang="id" className={cn("font-mono", jetbrainsMono.variable)}>
       <body>
         <SiteHeader />
-        <main>{children}</main>
+        <Toaster
+          position="top-right"
+          richColors
+          closeButton
+          duration={3000}
+        />
+        <main>
+            {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

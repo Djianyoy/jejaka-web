@@ -35,18 +35,18 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#173c32]/95 text-[#f8f2e4] backdrop-blur-xl">
-      <div className="container mx-auto flex h-[76px] items-center justify-between px-5">
+      <div className="container mx-auto flex h-[76px] items-center justify-between">
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="flex items-center gap-3"
+          className="flex items-center gap-1"
         >
           <Image
             src="/logo.png"
             alt="Logo Jelajah Aksara Jawa"
             width={500}
             height={500}
-            className="h-11 w-11 object-contain"
+            className="h-17 w-17 object-contain"
             priority
           />
 

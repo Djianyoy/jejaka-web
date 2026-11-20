@@ -8,7 +8,7 @@ import {
   Signpost,
   Laptop,
 } from "lucide-react";
-import { PageHeading } from "@/components/page-heading";
+import { PageHeading } from "@/shared/components/page-heading";
 export const metadata: Metadata = {
   title: "Pentingnya Melestarikan Aksara Jawa",
 };

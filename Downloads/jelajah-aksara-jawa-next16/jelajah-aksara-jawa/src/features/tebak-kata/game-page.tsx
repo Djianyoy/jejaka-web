@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { ArrowRight, RotateCcw, Sparkles } from "lucide-react";
-import { PageHeading } from "@/components/page-heading";
+import { PageHeading } from "@/shared/components/page-heading";
 import { latinToJawa, jawaToLatin } from "@/data/words";
 type Question = {
   prompt: string;

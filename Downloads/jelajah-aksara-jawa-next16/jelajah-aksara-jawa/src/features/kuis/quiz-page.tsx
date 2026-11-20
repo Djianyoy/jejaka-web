@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ArrowRight, RotateCcw, Trophy } from "lucide-react";
-import { PageHeading } from "@/components/page-heading";
+import { PageHeading } from "@/shared/components/page-heading";
 import { quizQuestions } from "@/data/quiz";
 export function QuizPage() {
   const [started, setStarted] = useState(false);

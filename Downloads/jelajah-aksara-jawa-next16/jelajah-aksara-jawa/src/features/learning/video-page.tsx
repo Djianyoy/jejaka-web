@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { PlayCircle, Clock3, Video } from "lucide-react";
-import { PageHeading } from "@/components/page-heading";
+import { PageHeading } from "@/shared/components/page-heading";
 const categories = [
   "Semua",
   "Pengenalan Aksara Jawa",
