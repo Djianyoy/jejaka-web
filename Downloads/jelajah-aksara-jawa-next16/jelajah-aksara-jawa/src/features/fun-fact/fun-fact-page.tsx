@@ -4,4 +4,95 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Shuffle, Sparkles } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 import { facts } from "@/data/facts";
-export function FunFactPage(){const [index,setIndex]=useState(0);const item=facts[index];const move=(n:number)=>setIndex((n+facts.length)%facts.length);const random=()=>{let n=index;while(n===index)n=Math.floor(Math.random()*facts.length);setIndex(n)};return <div className="container py-14 sm:py-20"><PageHeading eyebrow="DID YOU KNOW?" title="Fakta menarik Aksara Jawa" description="Selalu ada cerita menarik di balik setiap aksara. Temukan hal-hal unik yang mungkin belum pernah kamu ketahui."/><div className="mx-auto max-w-4xl overflow-hidden rounded-[30px] bg-[#173c32] shadow-xl"><div className="flex items-center justify-between border-b border-white/10 px-6 py-5 sm:px-10"><span className="inline-flex items-center gap-2 rounded-full bg-[#d8bd87]/15 px-3 py-2 text-[10px] font-bold tracking-[.18em] text-[#e5ca91]"><Sparkles size={13}/> {item.tag}</span><span className="text-sm font-semibold text-[#d6d9cf]">{String(index+1).padStart(2,"0")} <span className="text-[#8fa095]">/ {String(facts.length).padStart(2,"0")}</span></span></div><div className="grid min-h-[360px] items-center gap-6 p-7 sm:p-12 md:grid-cols-[.8fr_1.2fr]"><div className="flex min-h-44 items-center justify-center rounded-2xl border border-white/10 bg-white/[.04]"><span className="jawa text-center text-5xl leading-[1.8] text-[#e3ca96] sm:text-6xl">{item.symbol}</span></div><div><p className="text-xs font-bold tracking-[.18em] text-[#d7bd88]">FAKTA KE-{index+1}</p><h2 className="display mt-3 text-3xl font-semibold text-[#f5f0e4] sm:text-4xl">{item.title}</h2><p className="mt-5 text-base leading-8 text-[#d1d8ce]">{item.body}</p></div></div><div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-6 py-5 sm:px-10"><button onClick={()=>move(index-1)} className="btn-outline !border-white/25 !text-white hover:!bg-white/10"><ArrowLeft size={16}/> Sebelumnya</button><button onClick={random} className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-[#e1c995] hover:bg-white/10"><Shuffle size={15}/> Acak fakta</button><button onClick={()=>move(index+1)} className="btn-primary">Selanjutnya <ArrowRight size={16}/></button></div></div><div className="mx-auto mt-5 flex max-w-4xl justify-center gap-2">{facts.map((f,i)=><button key={f.title} onClick={()=>setIndex(i)} aria-label={`Fakta ${i+1}`} className={`h-1.5 rounded-full transition-all ${i===index?"w-9 bg-[#315b4b]":"w-3 bg-[#d7cfbf]"}`}/>)}</div><div className="mx-auto mt-14 max-w-4xl rounded-2xl bg-[#eee7d8] p-6 sm:p-8"><p className="eyebrow">LANJUTKAN JELAJAH</p><h3 className="display mt-2 text-2xl font-semibold text-[#173c32]">Setiap aksara menyimpan makna.</h3><p className="mt-2 text-sm leading-6 text-[#77776c]">Kenali alasan mengapa warisan ini penting untuk terus dijaga.</p><Link href="/pentingnya" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#315b4b]">Mengapa Aksara Jawa penting? <ArrowRight size={15}/></Link></div></div>}
+export function FunFactPage() {
+  const [index, setIndex] = useState(0);
+  const item = facts[index];
+  const move = (n: number) => setIndex((n + facts.length) % facts.length);
+  const random = () => {
+    let n = index;
+    while (n === index) n = Math.floor(Math.random() * facts.length);
+    setIndex(n);
+  };
+  return (
+    <div className="container py-14 sm:py-20">
+      <PageHeading
+        eyebrow="DID YOU KNOW?"
+        title="Fakta menarik Aksara Jawa"
+        description="Selalu ada cerita menarik di balik setiap aksara. Temukan hal-hal unik yang mungkin belum pernah kamu ketahui."
+      />
+      <div className="mx-auto max-w-4xl overflow-hidden rounded-[30px] bg-[#173c32] shadow-xl">
+        <div className="flex items-center justify-between border-b border-white/10 px-6 py-5 sm:px-10">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#d8bd87]/15 px-3 py-2 text-[10px] font-bold tracking-[.18em] text-[#e5ca91]">
+            <Sparkles size={13} /> {item.tag}
+          </span>
+          <span className="text-sm font-semibold text-[#d6d9cf]">
+            {String(index + 1).padStart(2, "0")}{" "}
+            <span className="text-[#8fa095]">
+              / {String(facts.length).padStart(2, "0")}
+            </span>
+          </span>
+        </div>
+        <div className="grid min-h-[360px] items-center gap-6 p-7 sm:p-12 md:grid-cols-[.8fr_1.2fr]">
+          <div className="flex min-h-44 items-center justify-center rounded-2xl border border-white/10 bg-white/[.04]">
+            <span className="jawa text-center text-5xl leading-[1.8] text-[#e3ca96] sm:text-6xl">
+              {item.symbol}
+            </span>
+          </div>
+          <div>
+            <p className="text-xs font-bold tracking-[.18em] text-[#d7bd88]">
+              FAKTA KE-{index + 1}
+            </p>
+            <h2 className="display mt-3 text-3xl font-semibold text-[#f5f0e4] sm:text-4xl">
+              {item.title}
+            </h2>
+            <p className="mt-5 text-base leading-8 text-[#d1d8ce]">
+              {item.body}
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-6 py-5 sm:px-10">
+          <button
+            onClick={() => move(index - 1)}
+            className="btn-outline !border-white/25 !text-white hover:!bg-white/10"
+          >
+            <ArrowLeft size={16} /> Sebelumnya
+          </button>
+          <button
+            onClick={random}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-[#e1c995] hover:bg-white/10"
+          >
+            <Shuffle size={15} /> Acak fakta
+          </button>
+          <button onClick={() => move(index + 1)} className="btn-primary">
+            Selanjutnya <ArrowRight size={16} />
+          </button>
+        </div>
+      </div>
+      <div className="mx-auto mt-5 flex max-w-4xl justify-center gap-2">
+        {facts.map((f, i) => (
+          <button
+            key={f.title}
+            onClick={() => setIndex(i)}
+            aria-label={`Fakta ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all ${i === index ? "w-9 bg-[#315b4b]" : "w-3 bg-[#d7cfbf]"}`}
+          />
+        ))}
+      </div>
+      <div className="mx-auto mt-14 max-w-4xl rounded-2xl bg-[#eee7d8] p-6 sm:p-8">
+        <p className="eyebrow">LANJUTKAN JELAJAH</p>
+        <h3 className="display mt-2 text-2xl font-semibold text-[#173c32]">
+          Setiap aksara menyimpan makna.
+        </h3>
+        <p className="mt-2 text-sm leading-6 text-[#77776c]">
+          Kenali alasan mengapa warisan ini penting untuk terus dijaga.
+        </p>
+        <Link
+          href="/pentingnya"
+          className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#315b4b]"
+        >
+          Mengapa Aksara Jawa penting? <ArrowRight size={15} />
+        </Link>
+      </div>
+    </div>
+  );
+}
