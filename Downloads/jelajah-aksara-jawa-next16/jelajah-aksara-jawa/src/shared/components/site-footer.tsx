@@ -26,9 +26,11 @@ export function SiteFooter() {
                 <Link
                   key={x.href}
                   href={x.href}
-                  className="text-sm text-[#d9d8cd] hover:text-white"
+                  className="text-sm w-fit"
                 >
-                  {x.label}
+                  <p className="text-white/80 hover:text-gold">
+                    {x.label}
+                  </p>
                 </Link>
               ))}
             </div>

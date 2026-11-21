@@ -116,16 +116,18 @@ export function SiteHeader() {
                 </Link>
               ))}
 
-              <div className="my-1 border-t border-[#173c32]/10" />
+              <div className="my-1 border-t border-[#173c32]/30" />
 
               <Link
                 href="/about"
                 tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-between gap-8 rounded-xl bg-[#173c32]/90 px-4 py-3 text-sm font-semibold text-[#f8f2e4] transition-colors duration-200 hover:bg-[#1b5e4c]"
+                className="flex items-center justify-between gap-8 rounded-xl bg-forest-2 px-4 py-3 text-sm font-semibold transition-colors duration-200 hover:bg-[#14755b]"
               >
-                Jelajah Sekarang
-                <ArrowUpRight size={16} />
+                <p className="text-gold">
+                  Jelajah Sekarang
+                </p>
+                <ArrowUpRight size={16} className="text-gold"/>
               </Link>
             </nav>
           </div>
