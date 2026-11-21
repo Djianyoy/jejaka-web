@@ -113,7 +113,6 @@ export function AboutPage() {
               Pilih salah satu aksara untuk melihat bentuknya lebih dekat.
             </p>
           </div>
-          <span className="text-xs text-[#8d744e]">4 baris · 5 kolom</span>
         </div>
         <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 lg:grid-cols-10">
           {aksara.map(([char, name], i) => (

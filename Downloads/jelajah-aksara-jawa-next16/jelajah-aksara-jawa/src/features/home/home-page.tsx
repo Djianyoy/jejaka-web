@@ -77,6 +77,7 @@ export function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const leftCloudRef = useRef<HTMLDivElement>(null);
   const rightCloudRef = useRef<HTMLDivElement>(null);
+  const gununganRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -85,24 +86,95 @@ export function HomePage() {
       const hero = heroRef.current;
       const leftCloud = leftCloudRef.current;
       const rightCloud = rightCloudRef.current;
+      const gunungan = gununganRef.current;
 
-      if (!hero || !leftCloud || !rightCloud) return;
+      if (!hero || !leftCloud || !rightCloud || !gunungan) return;
 
-      const heroContent = hero.querySelector("[data-hero-content]");
+      const heroTitle = hero.querySelector("[data-hero-title]");
+      const heroSubtitle = hero.querySelector("[data-hero-subtitle]");
+      const heroButtons = hero.querySelectorAll(
+      "[data-hero-buttons] > *"
+      );
+      const heroStats = hero.querySelectorAll("[data-hero-stat]");
+      const heroInfinity = hero.querySelector("[data-counter-infinity]");
       const heroVisual = hero.querySelector("[data-hero-visual]");
 
-      gsap.set([heroContent, heroVisual], {
-        autoAlpha: 0,
-      });
+      
+      gsap.set(
+        [
+            heroTitle,
+            heroSubtitle,
+            ...Array.from(heroButtons),
+            ...Array.from(heroStats),
+            heroVisual,
+        ],
+        {
+            autoAlpha: 0,
+        }
+      );
 
-      gsap.set(heroContent, {
+      gsap.set(heroTitle, {
         y: 55,
-      });
+        scale: 0.95,
+        });
 
-      gsap.set(heroVisual, {
+        gsap.set(heroSubtitle, {
+        y: 35,
+        });
+
+        gsap.set(heroButtons, {
+        y: 25,
+        scale: 0.95,
+        });
+
+        gsap.set(heroStats, {
+        y: 30,
+        });
+
+        gsap.set(heroVisual, {
         y: 35,
         scale: 0.94,
       });
+
+      let counterPlayed = false;
+
+        const startCounter = () => {
+        if (counterPlayed) return;
+
+        counterPlayed = true;
+
+        hero.querySelectorAll<HTMLElement>("[data-counter]").forEach((el) => {
+            const target = Number(el.dataset.counter);
+            const counter = { value: 0 };
+
+            gsap.to(counter, {
+            value: target,
+            duration: 2.2,
+            ease: "power2.out",
+            onUpdate: () => {
+                el.textContent = Math.round(counter.value).toString();
+            },
+            });
+        });
+
+        if (heroInfinity) {
+            gsap.fromTo(
+            heroInfinity,
+            {
+                autoAlpha: 0,
+                scale: 0.4,
+                rotation: -90,
+            },
+            {
+                autoAlpha: 1,
+                scale: 1,
+                rotation: 0,
+                duration: 1.2,
+                ease: "elastic.out(1, 0.5)",
+            }
+            );
+        }
+        };
 
       const introTimeline = gsap.timeline({
         scrollTrigger: {
@@ -115,6 +187,38 @@ export function HomePage() {
           invalidateOnRefresh: true,
         },
       });
+
+
+        if (gunungan) {
+        gsap.set(gunungan, {
+            autoAlpha: 0,
+            y: 30,
+            scale: 0.95,
+            opacity: 0
+        });
+
+        gsap.to(gunungan, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+            trigger: hero,
+            start: "top 70%",
+            once: true,
+            },
+            onComplete: () => {
+            gsap.to(gunungan, {
+                y: -12,
+                duration: 1.2,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            });
+            },
+        });
+        }
 
       introTimeline
         .to(
@@ -134,25 +238,62 @@ export function HomePage() {
           0
         )
         .to(
-          heroContent,
-          {
-            autoAlpha: 1,
-            y: 0,
-            ease: "power2.out",
-          },
-          0.35
-        )
-        .to(
-          heroVisual,
-          {
+            heroTitle,
+            {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            ease: "power2.out",
-          },
-          0.48
+            duration: 0.8,
+            ease: "back.out(1.5)",
+            },
+            0.25
+        )
+        .to(
+            heroSubtitle,
+            {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            },
+            0.42
+        )
+        .to(
+            heroButtons,
+            {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.65,
+            stagger: 0.15,
+            ease: "back.out(1.7)",
+            },
+            0.55
+        )
+        .to(
+        heroStats,
+        {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power3.out",
+            onStart: startCounter,
+        },
+        0.72
+        )
+        .to(
+            heroVisual,
+            {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            },
+            0.55
         );
-
+      
       const sections = gsap.utils.toArray<HTMLElement>(
         "[data-reveal]",
         pageRef.current
@@ -223,7 +364,7 @@ export function HomePage() {
     <div ref={pageRef}>
       <div
         ref={leftCloudRef}
-        className="pointer-events-none fixed inset-y-0 left-0 z-[99999] w-1/2"
+        className="pointer-events-none fixed inset-0 z-[99999] w-1/2"
         style={{
           backgroundImage: "url('/images/awan-home.jpg')",
           backgroundSize: "200% 100%",
@@ -243,105 +384,159 @@ export function HomePage() {
         }}
       />
 
-      <section
+      
+        <section
         ref={heroRef}
-        className="relative min-h-screen overflow-hidden bg-[#173c32] text-[#f5f0e4]"
-      >
-        <div className="pattern absolute inset-0 opacity-30" />
+        className="relative isolate min-h-screen overflow-hidden bg-[#173c32] text-[#f5f0e4]"
+        >
+        <div
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{
+            backgroundImage: "url('/images/motif-batik.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.2,
+            }}
+        />
 
-        <div className="container relative z-10 grid min-h-screen items-center gap-12 py-16 lg:grid-cols-[1.05fr_.95fr] lg:py-20">
-          <div data-hero-content>
-            <h1 className="display max-w-2xl text-5xl leading-[1.08] font-semibold sm:text-6xl lg:text-[72px]">
-              Jelajah <span className="text-[#dfc58f]">Aksara</span>
-              <br />
-              Jawa.
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[#173c32]/30" />
+
+        <div
+            ref={gununganRef}
+            className="absolute left-1/2 top-1/3 z-0 w-[420px] -translate-x-1/2 -translate-y-1/2 lg:left-1/4 lg:top-1/2"
+        >
+            <img
+            src="/images/gunungan.webp"
+            alt="Gunungan"
+            className="h-auto w-full opacity-50"
+            />
+        </div>
+
+        <div className="container relative z-10 grid min-h-screen items-center gap-12 py-30 lg:grid-cols-[1.05fr_.95fr] lg:py-20">
+            <div data-hero-content>
+            <h1
+                data-hero-title
+                className="display max-w-2xl text-5xl leading-[1.08] font-semibold sm:text-6xl lg:text-[72px]"
+            >
+                Jelajah <span className="text-[#dfc58f]">Aksara</span>
+                <br />
+                Jawa.
             </h1>
 
-            <p className="mt-7 max-w-xl text-lg leading-8 text-[#d5d9ce]">
-              Warisan budaya, identitas, dan kekayaan bahasa yang perlu kita
-              kenali serta lestarikan.
+            <p
+                data-hero-subtitle
+                className="mt-7 max-w-xl text-lg leading-8 text-[#d5d9ce]"
+            >
+                Warisan budaya, identitas, dan kekayaan bahasa yang perlu kita
+                kenali serta lestarikan.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/about" className="btn-primary">
+            <div data-hero-buttons className="mt-9 flex flex-wrap gap-3">
+                <Link href="/about" className="btn-primary">
                 Mulai Belajar Aksara Jawa <ArrowRight size={17} />
-              </Link>
+                </Link>
 
-              <Link
+                <Link
                 href="/fun-fact"
                 className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/30 px-6 text-sm font-semibold hover:bg-white/10"
-              >
+                >
                 Temukan Fakta Unik
-              </Link>
+                </Link>
             </div>
 
-            <div className="mt-12 flex gap-8 border-t border-white/15 pt-6">
-              <div>
-                <p className="display text-3xl text-[#e4ce9f]">20</p>
-                <p className="mt-1 text-xs text-[#c5cabb]">Aksara dasar</p>
-              </div>
+            <div
+                data-hero-stats
+                className="mt-12 grid grid-cols-3 gap-3 border-t border-white/15 pt-6"
+            >
+                <div
+                data-hero-stat
+                className="flex w-full flex-col items-center justify-center rounded-xl bg-[#e4ce9f] py-3 text-forest"
+                >
+                <p className="display text-3xl font-semibold">
+                    <span data-counter="20">0</span>
+                </p>
+                <p className="mt-1 text-center text-xs text-forest-2">
+                    Aksara dasar
+                </p>
+                </div>
 
-              <div>
-                <p className="display text-3xl text-[#e4ce9f]">8</p>
-                <p className="mt-1 text-xs text-[#c5cabb]">Ruang jelajah</p>
-              </div>
+                <div
+                data-hero-stat
+                className="flex w-full flex-col items-center justify-center rounded-xl bg-[#e4ce9f] py-3 text-forest"
+                >
+                <p className="display text-3xl font-semibold">
+                    <span data-counter="8">0</span>
+                </p>
+                <p className="mt-1 text-center text-xs text-forest-2">
+                    Ruang jelajah
+                </p>
+                </div>
 
-              <div>
-                <p className="display text-3xl text-[#e4ce9f]">∞</p>
-                <p className="mt-1 text-xs text-[#c5cabb]">Cerita budaya</p>
-              </div>
+                <div
+                data-hero-stat
+                className="flex w-full flex-col items-center justify-center rounded-xl bg-[#e4ce9f] py-3 text-forest"
+                >
+                <p className="display text-3xl font-semibold">
+                    <span data-counter-infinity>∞</span>
+                </p>
+                <p className="mt-1 text-center text-xs text-forest-2">
+                    Cerita budaya
+                </p>
+                </div>
             </div>
-          </div>
+            </div>
 
-          <div
+            <div
             data-hero-visual
             className="relative mx-auto w-full max-w-[520px]"
-          >
+            >
             <div className="absolute -inset-5 rounded-[36px] border border-[#d8bd87]/25" />
 
             <div className="relative overflow-hidden rounded-[28px] border border-white/15 bg-[#e7d9bb] p-3 shadow-2xl">
-              <div className="relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[20px] bg-[radial-gradient(ellipse_at_top,#d8c49a,#9e8056_65%,#6d5539)] p-7 text-[#342d21]">
+                <div className="relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[20px] bg-[radial-gradient(ellipse_at_top,#d8c49a,#9e8056_65%,#6d5539)] p-7 text-[#342d21]">
                 <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
+                    className="absolute inset-0 opacity-20"
+                    style={{
                     backgroundImage:
-                      "repeating-linear-gradient(45deg,transparent,transparent 9px,#fff 10px,transparent 11px)",
-                  }}
+                        "repeating-linear-gradient(45deg,transparent,transparent 9px,#fff 10px,transparent 11px)",
+                    }}
                 />
 
                 <div className="relative flex justify-between text-[10px] font-bold tracking-[.2em]">
-                  <span>ꦲꦤꦕꦫꦏ</span>
-                  <span>EST. CULTURE</span>
+                    <span>ꦲꦤꦕꦫꦏ</span>
+                    <span>EST. CULTURE</span>
                 </div>
 
                 <div className="relative py-10 text-center">
-                  <p className="jawa text-6xl leading-[1.8] sm:text-7xl">
+                    <p className="jawa text-6xl leading-[1.8] sm:text-7xl">
                     ꦲꦤꦕꦫꦏ
-                  </p>
+                    </p>
 
-                  <p className="display mt-3 text-3xl italic">
+                    <p className="display mt-3 text-3xl italic">
                     Hanacaraka
-                  </p>
+                    </p>
 
-                  <p className="mt-2 text-xs tracking-[.2em]">
+                    <p className="mt-2 text-xs tracking-[.2em]">
                     AKSARA · BUDAYA · CERITA
-                  </p>
+                    </p>
                 </div>
 
                 <div className="relative flex items-end justify-between border-t border-[#51422e]/30 pt-4">
-                  <span className="text-[10px] leading-5">
+                    <span className="text-[10px] leading-5">
                     Mengenal warisan
                     <br />
                     lewat aksara.
-                  </span>
+                    </span>
 
-                  <span className="jawa text-3xl">ꦗꦮ</span>
+                    <span className="jawa text-3xl">ꦗꦮ</span>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
         </div>
-      </section>
+        </section>
+
 
       <section className="section bg-[#faf9f5]" data-reveal>
         <div className="container grid items-center gap-12 lg:grid-cols-[.8fr_1.2fr]">
@@ -376,7 +571,6 @@ export function HomePage() {
                   Aksara Carakan · Nglegena
                 </p>
               </div>
-
             </div>
 
             <div className="grid grid-cols-5 gap-2 sm:gap-3">
@@ -400,10 +594,8 @@ export function HomePage() {
               href="/about"
               className="mt-5 flex items-center justify-center gap-2 rounded-xl bg-forest py-3 text-sm font-bold text-white"
             >
-              <p className="text-cream">
-                Lihat semua aksara
-              </p>
-              <ArrowRight size={15} color="white"/>
+              <p className="text-cream">Lihat semua aksara</p>
+              <ArrowRight size={15} color="white" />
             </Link>
           </div>
         </div>
@@ -566,16 +758,6 @@ export function HomePage() {
                 </span>
               </Link>
             ))}
-          </div>
-
-          <div className="mt-5 text-center">
-            <Link
-              href="/video"
-              className="inline-flex items-center gap-2 text-sm text-[#e1c995]"
-            >
-              <PlayCircle size={17} />
-              Lihat video pembelajaran
-            </Link>
           </div>
         </div>
       </section>
